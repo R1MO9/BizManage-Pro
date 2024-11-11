@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: theme('colors.light.background');
+  color: theme('colors.light.text');
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600; /* Adjust as necessary */
+}
+
+p {
+  line-height: 1.6; /* Improve readability */
+}
+
+a {
+  color: theme('colors.light.primary');
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: theme('colors.light.accent'); /* Change on hover */
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: theme('colors.dark.background');
+    color: theme('colors.dark.text');
+  }
+
+  a {
+    color: theme('colors.dark.primary');
+  }
+
+  a:hover {
+    color: theme('colors.dark.accent');
+  }
+}
