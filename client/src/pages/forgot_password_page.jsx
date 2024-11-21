@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import forgotPasswordIllustration from '../assets/images/forgot_password.png';
 import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
+import { Link } from 'react-router-dom';
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = useState('');
@@ -57,7 +58,9 @@ const ForgotPasswordPage = () => {
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-700 dark:text-gray-300">
                             Remember your password?{' '}
-                            <a href="/login" className="text-blue-500 dark:text-blue-400 hover:underline">Login here</a>.
+                            <Link to="/login" className="text-blue-500 dark:text-yellow-400 hover:underline">
+                                Login
+                            </Link>
                         </p>
                     </div>
                 </div>
