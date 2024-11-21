@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Layout from './Layout';
+import Layout from './layout';
 import LoginPage from './pages/login_page';
 import SignupPage from './pages/signup_page';
 import BusinessForm from './pages/craete_business';
