@@ -29,6 +29,23 @@ export default {
           danger: "#DC3545", // Alert Red
         },
       },
+
+      // Custom animations for the 404 page
+      animation: {
+        'fadeInScale': 'fadeInScale 1.5s ease-out',
+        'fadeInUp': 'fadeInUp 1.5s ease-out',
+        'bounce-slow': 'bounce 3s ease infinite',
+      },
+      keyframes: {
+        fadeInScale: {
+          '0%': { opacity: '0', transform: 'scale(0.5)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
     },
   },
   plugins: [],

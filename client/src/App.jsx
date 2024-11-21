@@ -9,6 +9,7 @@ import Loader from './components/common/loader';
 import ThemeSwitcher from './components/common/theme_switcher';
 import InventoryManagementPage from './pages/inventory_management_page';
 import SalesPage from './pages/sales_page';
+import NotFound from './pages/not_found_page';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -28,13 +29,15 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<ThemeSwitcher />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/inventory" element={<InventoryManagementPage />} />
-      <Route path="/sales" element={<SalesPage />} />
-      <Route path="/create-business" element={<BusinessForm />} />
+      <Route path='/' element={<Layout />} >
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/inventory" element={<InventoryManagementPage />} />
+        <Route path="/sales" element={<SalesPage />} />
+        <Route path="/create-business" element={<BusinessForm />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
