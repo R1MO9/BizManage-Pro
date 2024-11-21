@@ -15,13 +15,9 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time for fetching data or loading components
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // Adjust the duration as needed
-
-    return () => clearTimeout(timer);
-  }, []);
+    setLoading(false);
+  }
+  , []);
 
   if (loading) {
     return <Loader />;
