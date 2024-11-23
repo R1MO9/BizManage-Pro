@@ -22,7 +22,7 @@ const ProductForm = ({ currentItem, onSave, onCancel }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-4">
             <div className="mb-4">
                 <LabeledTextInput
                     id="name"
@@ -31,6 +31,7 @@ const ProductForm = ({ currentItem, onSave, onCancel }) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
+                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2"
                 />
             </div>
             <div className="mb-4">
@@ -42,6 +43,7 @@ const ProductForm = ({ currentItem, onSave, onCancel }) => {
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                     required
+                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2"
                 />
             </div>
             <div className="mb-4">
@@ -53,6 +55,7 @@ const ProductForm = ({ currentItem, onSave, onCancel }) => {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     required
+                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2"
                 />
             </div>
             <div className="mb-4">
@@ -63,6 +66,7 @@ const ProductForm = ({ currentItem, onSave, onCancel }) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
+                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2"
                 />
             </div>
             <div className="mb-4">
@@ -73,11 +77,26 @@ const ProductForm = ({ currentItem, onSave, onCancel }) => {
                     value={supplierId}
                     onChange={(e) => setSupplierId(e.target.value)}
                     required
+                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2"
                 />
             </div>
             <div className="flex justify-end gap-2">
-                <Button type="button" onClick={onCancel} className="bg-gray-300 text-gray-800 px-4 py-2 rounded">Cancel</Button>
-                <Button type="submit">Save</Button>
+                {/* Cancel Button */}
+                <Button 
+                    type="button" 
+                    onClick={onCancel} 
+                    className="bg-red-300 text-gray-800 dark:text-white px-4 py-2 rounded hover:bg-red-400 "
+                >
+                    Cancel
+                </Button>
+
+                {/* Save Button */}
+                <Button 
+                    type="submit" 
+                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                >
+                    Save
+                </Button>
             </div>
         </form>
     );

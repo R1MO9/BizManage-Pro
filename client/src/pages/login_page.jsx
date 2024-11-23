@@ -3,15 +3,15 @@ import loginIllustration from '../assets/images/login.png';
 import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
 import { Link } from 'react-router-dom';
+import Login from '../actions/auth/login';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic for handling login goes here
-        console.log('Email:', email, 'Password:', password);
+        await Login(email, password);
     };
 
     return (
