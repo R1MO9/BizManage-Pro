@@ -28,12 +28,12 @@ const CreateBusiness = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-lg bg-white shadow-md rounded-lg p-8"
+                className="w-full max-w-lg bg-white dark:bg-gray-800 shadow-md rounded-lg p-8"
             >
-                <h2 className="text-2xl font-semibold mb-6 text-center">
+                <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-white">
                     Business Information
                 </h2>
 
@@ -46,6 +46,7 @@ const CreateBusiness = () => {
                     onChange={handleChange}
                     placeholder="Enter your business name"
                     required
+                    className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
                 {/* Business Email */}
@@ -57,6 +58,7 @@ const CreateBusiness = () => {
                     onChange={handleChange}
                     placeholder="Enter your business email"
                     required
+                    className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
                 {/* Business Phone */}
@@ -68,6 +70,7 @@ const CreateBusiness = () => {
                     onChange={handleChange}
                     placeholder="Enter your business phone"
                     required
+                    className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
                 {/* Business Address */}
@@ -79,11 +82,12 @@ const CreateBusiness = () => {
                     onChange={handleChange}
                     placeholder="Enter your business address"
                     required
+                    className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
                 {/* Business Logo */}
-                <div className="mb-3">
-                    <label htmlFor="businessLogo" className="block text-sm font-semibold mb-1">
+                <div className="mb-4">
+                    <label htmlFor="businessLogo" className="block text-sm font-semibold text-gray-800 dark:text-white mb-1">
                         Business Logo (Optional)
                     </label>
                     <input
@@ -91,22 +95,26 @@ const CreateBusiness = () => {
                         name="businessLogo"
                         type="file"
                         onChange={handleChange}
-                        className="border rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
                 {/* Business GST */}
                 <LabeledTextInput
                     id="businessGST"
-                    label="Business GST (Optional)"
+                    label="Business GST"
                     type="text"
                     value={formData.businessGST}
                     onChange={handleChange}
                     placeholder="Enter your business GST"
+                    className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
                 {/* Submit Button */}
-                <Button type="submit" className="w-full mt-6">
+                <Button
+                    type="submit"
+                    className="w-full mt-6 bg-blue-600 dark:bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-700 dark:hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
                     Submit
                 </Button>
             </form>
