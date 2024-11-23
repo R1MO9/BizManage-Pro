@@ -11,7 +11,7 @@ const LabeledTextInput = ({
 }) => {
   return (
     <div className="mb-3">
-      <label className="block text-sm font-semibold mb-1" htmlFor={id}>
+      <label className="block text-sm text-black dark:text-white font-semibold mb-1" htmlFor={id}>
         {label}
       </label>
       <input
