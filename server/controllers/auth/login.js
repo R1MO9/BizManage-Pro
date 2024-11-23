@@ -26,8 +26,7 @@ const login = async (req, res) => {
         'success',
         'Login successful.',
         {
-            user,
-            token: user.token
+            user: user.user,
         }
     );
 };
