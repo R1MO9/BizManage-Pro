@@ -136,9 +136,17 @@ npm install
 ### **Set Up Environment Variables**
 Create a `.env` file in the `server` directory and add the following environment variables:
 ```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/bizmanage
-JWT_SECRET=your_secret_key
+PORT='3000'
+
+# Version
+VERSION='v1'
+
+# Database Configuration
+MONGO_URI="mongodb://localhost:27017/BizManage_Pro"
+
+# JWT Configuration
+JWT_SECRET='your_secret_key'
+JWT_EXPIRES_IN='1d'
 ```
 
 ### **Run the Frontend**
