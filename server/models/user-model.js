@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
-import Business from './business-model.js';
 
-// Define the user schema
 const userSchema = new mongoose.Schema(
     {
         name: {

@@ -9,6 +9,7 @@ import connectDB from './db/index.js'
 import globalErrorHandler from './handlers/global-error-handler.js';
 import ProductRoutes from './routes/product-routes.js';
 import AuthRoutes from './routes/auth-routes.js';
+import BusinessRoutes from './routes/business-routes.js';
 
 const app = express();
 dotenv.config();
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
 app.use(globalErrorHandler);
 app.use('/api/products', ProductRoutes);
 app.use('/api/auth', AuthRoutes);
+app.use('/api/business', BusinessRoutes);
 
 // Listen
 app.listen(process.env.PORT || 5000, () => {
