@@ -11,6 +11,7 @@ import InventoryManagementPage from './pages/inventory_management_page';
 import SalesPage from './pages/sales_page';
 import HomePage from './pages/home_page';
 import NotFound from './pages/not_found_page';
+import LogoutPage from './pages/logout_page';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
         <Route path="/inventory" element={<InventoryManagementPage />} />
         <Route path="/sales" element={<SalesPage />} />
         <Route path="/create-business" element={<BusinessForm />} />

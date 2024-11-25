@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import connectDB from './db/index.js'
 import globalErrorHandler from './handlers/global-error-handler.js';
 import ProductRoutes from './routes/product-routes.js';
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.get('/', (req, res) => {

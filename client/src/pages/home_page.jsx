@@ -4,7 +4,7 @@ import Button from '../components/common/button';
 
 const Home = () => {
   return (
-    <div className="relative w-full h-screen flex flex-col-reverse sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white">
+    <div className="relative w-full flex flex-col-reverse overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white">
       {/* Text Content */}
       <div className="text-black dark:text-white text-center sm:text-left max-w-lg space-y-4 sm:w-1/2">
         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
@@ -63,7 +63,7 @@ const Home = () => {
           left: 0;
           right: 0;
           bottom: 0;
-          z-index: -1;
+          z-index: 10;
           pointer-events: none;
         }
 

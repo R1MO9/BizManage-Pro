@@ -1,20 +1,13 @@
-import Axios from 'axios';
-
-const LoginURL = 'http://localhost:3000/api/auth/login';
+import axios from 'axios';
+import ApiConfig from '../../config/api-config.js';
 
 const login = async (email, password) => {
     try {
-        if (!email || !password) {
-            console.log('Email and password are required');
-            return;
-        }
-        const res = await Axios.post(LoginURL, { email, password });
-        console.log(res.data.data.user);
-
-        // Setting the cookie
-        document.cookie = `token=${res.data.data.user.token}; path=/;`;
+        const res = await axios.post(ApiConfig.LOGIN, { email, password });
+        return res.data;
     } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
+        return error.response.data;
     }
 };
 

@@ -3,20 +3,34 @@ import signupIllustration from '../assets/images/signup.png';
 import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
 import { Link } from 'react-router-dom';
+import register from '../actions/auth/register';
+import notify from '../components/common/notify';
+import Notification from '../components/common/notification';
+
 
 const SignupPage = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic for handling signup goes here
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
+        if (!name || !email || !password) {
+            notify('Email and password are required', 'error');
             return;
         }
-        console.log('Email:', email, 'Password:', password);
+
+        const res = await register(name, email, password);
+
+        if (res.status === 'error') {
+            notify(res.message, 'error');
+        } else {
+            notify('Account created successfully', 'success');
+        }
+
+        setName('');
+        setEmail('');
+        setPassword('');
     };
 
     return (
@@ -32,6 +46,17 @@ const SignupPage = () => {
                     <h2 className="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-gray-100">Sign Up</h2>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Name Input */}
+                        <LabeledTextInput
+                            id="name"
+                            label="Name"
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Enter your name"
+                            className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
+                        />
+
                         {/* Email Input */}
                         <LabeledTextInput
                             id="email"
@@ -40,7 +65,6 @@ const SignupPage = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
-                            required
                             className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                         />
 
@@ -52,19 +76,6 @@ const SignupPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Enter your password"
-                            required
-                            className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
-                        />
-
-                        {/* Confirm Password Input */}
-                        <LabeledTextInput
-                            id="confirmPassword"
-                            label="Confirm Password"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirm your password"
-                            required
                             className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                         />
 
@@ -85,6 +96,7 @@ const SignupPage = () => {
                     </div>
                 </div>
             </div>
+            <Notification />
         </div>
     );
 };
