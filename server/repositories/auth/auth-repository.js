@@ -7,8 +7,16 @@ export default class AuthRepository {
         return await User.findOne({ email });
     }
 
-    static async register(name, email, password) {
-        return await User.create({ name, email, password });
+    static async register(name, email, password, otp) {
+        return await User.create({ name, email, password, otp });
+    }
+
+    static async verifyUser(id) {
+        return await User.findByIdAndUpdate(id, { otp: null, isVarified: true });
+    }
+
+    static async generateOtp() {
+        return await Math.floor(100000 + Math.random() * 900000);
     }
 
     static async hashPassword(password) {

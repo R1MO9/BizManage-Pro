@@ -6,7 +6,7 @@ const checkAuth = (req, res, next) => {
 
     // Check if the token is provided
     if (!token) {
-        return res.status(401).json({ message: 'Authorization token is missing' });
+        return res.status(401).json({ status: 'error', message: 'Unauthorized' });
     }
 
     // Try to verify the token
@@ -22,15 +22,15 @@ const checkAuth = (req, res, next) => {
     } catch (error) {
         // Handle specific JWT errors
         if (error.name === 'JsonWebTokenError') {
-            return res.status(401).json({ message: 'Invalid token' });
+            return res.status(401).json({ status: 'error', message: 'Invalid token' });
         }
 
         if (error.name === 'TokenExpiredError') {
-            return res.status(401).json({ message: 'Token expired' });
+            return res.status(401).json({ status: 'error', message: 'Token expired' });
         }
 
         // Generic error message for other types of errors
-        return res.status(401).json({ message: 'Unauthorized, please login again' });
+        return res.status(401).json({ status: 'error', message: 'Unauthorized' });
     }
 };
 

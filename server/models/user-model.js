@@ -17,9 +17,18 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Password is required'],
         },
+        otp: {
+            type: Number,
+            default: null
+        },
         isAdmin: {
             type: Boolean,
             required: true,
+            default: false,
+        },
+        isVarified: {
+            type: Boolean,
+            required: [true, 'Email verification is required'],
             default: false,
         },
         business: {
