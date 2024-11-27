@@ -3,15 +3,19 @@ import signupIllustration from '../assets/images/signup.png';
 import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
 import { Link } from 'react-router-dom';
+import otpInput from '../components/common/otp-input';
 import register from '../actions/auth/register';
 import notify from '../components/common/notify';
 import Notification from '../components/common/notification';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignupPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +35,8 @@ const SignupPage = () => {
         setName('');
         setEmail('');
         setPassword('');
+
+        navigate('/verify-account');
     };
 
     return (

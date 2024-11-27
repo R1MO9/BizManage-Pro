@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import loginIllustration from '../assets/images/login.png';
 import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
@@ -7,6 +7,7 @@ import login from '../actions/auth/login.js';
 import notify from '../components/common/notify';
 import Notification from '../components/common/notification';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -35,6 +36,9 @@ const LoginPage = () => {
         setEmail('');
         setPassword('');
     };
+    useEffect(() => {
+        Cookies.get('token') ? navigate('/logout') : null;
+    }, []);
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 p-6 transition-colors duration-300">

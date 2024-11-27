@@ -1,30 +1,75 @@
 import React, { useState } from "react";
-import LabeledTextInput from "../components/common/labeled-text-input";
-import Button from "../components/common/button";
+import LabeledTextInput from "../components/common/labeled-text-input.jsx";
+import Button from "../components/common/button.jsx";
+import createBusiness from "../actions/business/createBusiness.js";
+import notify from "../components/common/notify.jsx";
+import Notification from "../components/common/notification.jsx";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const CreateBusiness = () => {
-    const [formData, setFormData] = useState({
-        businessName: "",
-        businessEmail: "",
-        businessPhone: "",
-        businessAddress: "",
-        businessLogo: null,
-        businessGST: "",
-    });
+    const navigate = useNavigate();
+    
+    const [businessName, setBusinessName] = useState("");
+    const [businessEmail, setBusinessEmail] = useState("");
+    const [businessPhone, setBusinessPhone] = useState("");
+    const [businessAddress, setBusinessAddress] = useState("");
+    const [businessLogo, setBusinessLogo] = useState(null);
+    const [businessGST, setBusinessGST] = useState("");
 
-    const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        if (name === "businessLogo") {
-            setFormData({ ...formData, [name]: files[0] });
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
+    // Handle input changes
+    const handleInputChange = (setter) => (e) => {
+        setter(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    // Handle file input change
+    const handleFileChange = (e) => {
+        setBusinessLogo(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form data:", formData);
-        // Form submission logic goes here
+
+        if(!businessName || !businessEmail || !businessPhone || !businessAddress || !businessGST) {
+            notify('Please fill in all fields', 'error');
+            return;
+        }
+
+        const token = Cookies.get('token');
+        if (!token) {
+            notify('Unauthorized', 'error');
+            return;
+        }
+
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+
+        const res = await createBusiness({
+            name: businessName,
+            email: businessEmail,
+            phone: businessPhone,
+            address: businessAddress,
+            logo: businessLogo,
+            gst: businessGST,
+            owner: decodedToken.id,
+        });
+        console.log(res);
+        
+        if (res.status === 'error') {
+            notify(res.message, 'error');
+        } else {
+            notify('Business created successfully', 'success');
+
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
+        }
+
+        setBusinessName('');
+        setBusinessEmail('');
+        setBusinessPhone('');
+        setBusinessAddress('');
+        setBusinessLogo(null);
+        setBusinessGST('');
     };
 
     return (
@@ -42,10 +87,9 @@ const CreateBusiness = () => {
                     id="businessName"
                     label="Business Name"
                     type="text"
-                    value={formData.businessName}
-                    onChange={handleChange}
+                    value={businessName}
+                    onChange={handleInputChange(setBusinessName)}
                     placeholder="Enter your business name"
-                    required
                     className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
@@ -54,10 +98,9 @@ const CreateBusiness = () => {
                     id="businessEmail"
                     label="Business Email"
                     type="email"
-                    value={formData.businessEmail}
-                    onChange={handleChange}
+                    value={businessEmail}
+                    onChange={handleInputChange(setBusinessEmail)}
                     placeholder="Enter your business email"
-                    required
                     className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
@@ -66,10 +109,9 @@ const CreateBusiness = () => {
                     id="businessPhone"
                     label="Business Phone"
                     type="tel"
-                    value={formData.businessPhone}
-                    onChange={handleChange}
+                    value={businessPhone}
+                    onChange={handleInputChange(setBusinessPhone)}
                     placeholder="Enter your business phone"
-                    required
                     className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
@@ -78,10 +120,9 @@ const CreateBusiness = () => {
                     id="businessAddress"
                     label="Business Address"
                     type="text"
-                    value={formData.businessAddress}
-                    onChange={handleChange}
+                    value={businessAddress}
+                    onChange={handleInputChange(setBusinessAddress)}
                     placeholder="Enter your business address"
-                    required
                     className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
 
@@ -94,7 +135,7 @@ const CreateBusiness = () => {
                         id="businessLogo"
                         name="businessLogo"
                         type="file"
-                        onChange={handleChange}
+                        onChange={handleFileChange}
                         className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -104,8 +145,8 @@ const CreateBusiness = () => {
                     id="businessGST"
                     label="Business GST"
                     type="text"
-                    value={formData.businessGST}
-                    onChange={handleChange}
+                    value={businessGST}
+                    onChange={handleInputChange(setBusinessGST)}
                     placeholder="Enter your business GST"
                     className="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -113,11 +154,12 @@ const CreateBusiness = () => {
                 {/* Submit Button */}
                 <Button
                     type="submit"
-                    className="w-full mt-6 bg-blue-600 dark:bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-700 dark:hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:bg-gray-900 transition"
                 >
                     Submit
                 </Button>
             </form>
+            <Notification />
         </div>
     );
 };
