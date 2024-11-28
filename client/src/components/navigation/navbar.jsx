@@ -4,7 +4,7 @@ import ThemeSwitcher from '../common/theme_switcher';
 import Button from '../common/button';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import image from '../../assets/images/user.png';
+import image from '../../assets/images/User.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
