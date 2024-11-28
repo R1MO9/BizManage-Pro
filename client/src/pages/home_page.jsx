@@ -1,46 +1,83 @@
 import React from 'react';
-import img from '../assets/images/login.png'; 
+import img from '../assets/images/login.png';
 import Button from '../components/common/button';
-import Testimonials from "./testimonial";
-import Footer from '../components/navigation/footer';
-
+import Testimonials from "../components/common/testimonial";
+import userImg from "../assets/images/user.png";
 
 const HomePage = () => {
   return (
     <div className="relative w-full overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white">
-    <div className="relative w-full flex flex-col-reverse overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white">
-      
-      {/* Text Content */}
-      <div className="text-black dark:text-white text-center sm:text-left max-w-lg space-y-4 sm:w-1/2">
-        <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-          Welcome to <span className="text-yellow-400">BizManage Pro</span>
-        </h1>
-        <p className="text-xl sm:text-2xl">
-          Your business, our management solution. Explore the best features for managing and optimizing your business operations.
-        </p>
-        <Button className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-md text-lg font-semibold hover:bg-yellow-400 transition duration-300" onClick={() => window.location.href = '/login'}>
-          Get Started
-        </Button>
-      </div>
+      <div className="relative w-full flex flex-col-reverse overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white">
 
-      {/* Image Content */}
-      <div className="w-full sm:w-1/2">
-        <img
-          src={img}
-          alt="Welcome_Image"
-          className="object-cover w-full h-full"
-        />
-      </div>
+        {/* Text Content */}
+        <div className="text-black dark:text-white text-center sm:text-left max-w-lg space-y-4 sm:w-1/2">
+          <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
+            Welcome to <span className="text-yellow-400">BizManage Pro</span>
+          </h1>
+          <p className="text-xl sm:text-2xl">
+            Your business, our management solution. Explore the best features for managing and optimizing your business operations.
+          </p>
+          <Button className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-md text-lg font-semibold hover:bg-yellow-400 transition duration-300" onClick={() => window.location.href = '/login'}>
+            Get Started
+          </Button>
+        </div>
 
-      {/* Background Animation */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="animate-floating-objects">
-          <div className="floating-object bg-white dark:bg-gray-400"></div>
-          <div className="floating-object bg-yellow-300 dark:bg-yellow-500"></div>
-          <div className="floating-object bg-blue-400 dark:bg-blue-500"></div>
-          <div className="floating-object bg-green-300 dark:bg-green-500"></div>
+        {/* Image Content */}
+        <div className="w-full sm:w-1/2">
+          <img
+            src={img}
+            alt="Welcome_Image"
+            className="object-cover w-full h-full"
+          />
+        </div>
+
+        {/* Background Animation */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="animate-floating-objects">
+            <div className="floating-object bg-white dark:bg-gray-400"></div>
+            <div className="floating-object bg-yellow-300 dark:bg-yellow-500"></div>
+            <div className="floating-object bg-blue-400 dark:bg-blue-500"></div>
+            <div className="floating-object bg-green-300 dark:bg-green-500"></div>
+          </div>
         </div>
       </div>
+
+      {/* Testimonials Section */}
+      <section className="py-12 text-black dark:text-white">
+        <div className="mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">
+            What Our Clients Say
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Testimonials
+              id="1"
+              name="John Doe"
+              position="CEO, Company Inc."
+              feedback="BizManage Pro has helped us streamline our business operations and improve our overall efficiency."
+              image={userImg}
+            />
+            <Testimonials
+              id="2"
+              name="Gtretchen Eos"
+              position="Team Lead, EPIC"
+              feedback="I have been using BizManage Pro for over a year now and it has been a game changer for our team."
+              image={userImg}
+            />
+            <Testimonials
+              id="3"
+              name="Bryan Smith"
+              position="COO, Smith & Co."
+              feedback="Since we started using BizManage Pro, we have seen a significant increase in our productivity and revenue."
+              image={userImg}
+            />
+          </div>
+        </div>
+      </section>
+
+
+
+
+
 
       {/* Floating Object Animation Styles */}
       <style jsx>{`
@@ -115,16 +152,6 @@ const HomePage = () => {
           animation-delay: -4s;
         }
       `}</style>
-
-
-      
-      
-    </div>
-        {/* Testimonials Section */}
-      <Testimonials />
-
-      {/* Footer Section */}
-      <Footer />
     </div>
   );
 };

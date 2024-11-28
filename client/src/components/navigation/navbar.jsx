@@ -4,7 +4,7 @@ import ThemeSwitcher from '../common/theme_switcher';
 import Button from '../common/button';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import image from '../../assets/images/User.png';
+import image from '../../assets/images/user.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +32,7 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <header className="w-full bg-gray-100 dark:bg-gray-900 dark:text-white shadow-lg z-30">
+    <header className="w-full bg-gray-100 dark:bg-gray-900 text-black dark:text-white shadow-lg z-30">
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="text-2xl font-semibold tracking-tight">
           <Link to="/" className="text-yellow-400">BizManage Pro</Link>
