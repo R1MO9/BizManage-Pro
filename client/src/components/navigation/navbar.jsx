@@ -35,7 +35,7 @@ const Navbar = () => {
     <header className="w-full bg-gray-100 dark:bg-gray-900 dark:text-white shadow-lg z-30">
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="text-2xl font-semibold tracking-tight">
-          <Link to="#home" className="text-yellow-400">BizManage Pro</Link>
+          <Link to="/" className="text-yellow-400">BizManage Pro</Link>
         </div>
 
         {/* Navbar Links */}
@@ -60,7 +60,7 @@ const Navbar = () => {
               />
             </div>
           ) : (
-            <Button className="dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
+            <Button className="hidden md:block dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
               Get Started
             </Button>
           )}
@@ -96,7 +96,7 @@ const Navbar = () => {
                 />
               </div>
             ) : (
-              <Button className="dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white">
+              <Button className="bg-yellow-400 hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
                 Get Started
               </Button>
             )}

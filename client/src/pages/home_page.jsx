@@ -2,7 +2,7 @@ import React from 'react';
 import img from '../assets/images/login.png'; 
 import Button from '../components/common/button';
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className="relative w-full flex flex-col-reverse overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white">
       {/* Text Content */}
@@ -13,7 +13,7 @@ const Home = () => {
         <p className="text-xl sm:text-2xl">
           Your business, our management solution. Explore the best features for managing and optimizing your business operations.
         </p>
-        <Button className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-md text-lg font-semibold hover:bg-yellow-400 transition duration-300">
+        <Button className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-md text-lg font-semibold hover:bg-yellow-400 transition duration-300" onClick={() => window.location.href = '/login'}>
           Get Started
         </Button>
       </div>
@@ -114,4 +114,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
