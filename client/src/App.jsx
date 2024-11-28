@@ -10,6 +10,7 @@ import ThemeSwitcher from './components/common/theme_switcher';
 import InventoryManagementPage from './pages/inventory_management_page';
 import SalesPage from './pages/sales_page';
 import HomePage from './pages/home_page';
+
 import NotFound from './pages/not_found_page';
 import LogoutPage from './pages/logout_page';
 import BusinessProfile from './pages/business-profile.jsx';
