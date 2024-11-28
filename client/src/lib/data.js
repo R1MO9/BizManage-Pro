@@ -22,3 +22,49 @@ export const products = [
     { id: 6, name: 'Item 6', quantity: 20, price: 40.00, description: 'Description 6', supplierId: 'Supplier-6' },
     { id: 7, name: 'Item 7', quantity: 25, price: 45.00, description: 'Description 7', supplierId: 'Supplier-7' },
 ];
+
+export const chartData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+        {
+            label: 'Revenue for the Year',
+            data: [1000, 1200, 1300, 1100, 1500, 1600, 1400, 1550, 1700, 1800, 1900, 2000],
+            fill: false,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            tension: 0.1,
+            borderWidth: 2,
+        }
+    ]
+};
+
+export const chartOptions = {
+    title: 'Monthly Revenue Overview',
+    responsive: true,
+    plugins: {
+        title: {
+            display: true,
+            text: 'Monthly Revenue Overview',
+            font: { size: 18 },
+        },
+        tooltip: {
+            callbacks: {
+                label: (tooltipItem) => `₹${tooltipItem.raw}`, // Formatting for tooltips
+            }
+        },
+    },
+    scales: {
+        x: {
+            title: {
+                display: true,
+                text: 'Month',
+            },
+        },
+        y: {
+            title: {
+                display: true,
+                text: 'Revenue (₹)',
+            },
+            beginAtZero: true,
+        },
+    },
+};
