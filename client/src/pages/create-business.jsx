@@ -49,10 +49,9 @@ const CreateBusiness = () => {
             phone: businessPhone,
             address: businessAddress,
             logo: businessLogo,
-            gst: businessGST,
+            gstin: businessGST,
             owner: decodedToken.id,
         });
-        console.log(res);
         
         if (res.status === 'error') {
             notify(res.message, 'error');

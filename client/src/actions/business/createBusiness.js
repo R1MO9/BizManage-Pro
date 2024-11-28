@@ -14,7 +14,7 @@ const createBusiness = async (businessData) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log('Business created:', response.data);return response.data;
+        return response.data;
     } catch (error) {
         return error.response.data;
     }
