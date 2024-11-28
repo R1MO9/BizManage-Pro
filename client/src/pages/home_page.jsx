@@ -2,7 +2,7 @@ import React from 'react';
 import img from '../assets/images/login.png';
 import Button from '../components/common/button';
 import Testimonials from "../components/common/testimonial";
-import userImg from "../assets/images/user.png";
+import userImg from "../assets/images/User.png";
 
 const HomePage = () => {
   return (
