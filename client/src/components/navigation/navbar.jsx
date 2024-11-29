@@ -85,6 +85,7 @@ const Navbar = () => {
             <Link to="#about" className="text-white text-xl hover:text-yellow-400 transition-colors duration-300">About</Link>
             <Link to="#services" className="text-white text-xl hover:text-yellow-400 transition-colors duration-300">Services</Link>
             <Link to="#contact" className="text-white text-xl hover:text-yellow-400 transition-colors duration-300">Contact</Link>
+            {/* <Link to="/contact" className="hover:text-blue-400">Contact</Link> */}
 
             {/* Conditionally render Button or User Logo */}
             {token ? (

@@ -10,7 +10,7 @@ import ThemeSwitcher from './components/common/theme_switcher';
 import InventoryManagementPage from './pages/inventory_management_page';
 import SalesPage from './pages/sales_page';
 import HomePage from './pages/home_page';
-
+import ContactPage from './pages/contact_page';
 import NotFound from './pages/not_found_page';
 import LogoutPage from './pages/logout_page';
 import BusinessProfile from './pages/business-profile.jsx';
@@ -41,6 +41,8 @@ const App = () => {
         <Route path="/create-business" element={<CreateBusiness />} />
         <Route path="/business-profile/:id" element={<BusinessProfile />} />
         <Route path="/verify-account" element={<VerifyAccount />} />
+        <Route path="/contact" element={<ContactPage />} />
+
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
