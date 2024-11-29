@@ -1,14 +1,15 @@
 import bodyParser from 'body-parser';
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import connectDB from './db/index.js'
 import globalErrorHandler from './handlers/global-error-handler.js';
 import ProductRoutes from './routes/product-routes.js';
 import AuthRoutes from './routes/auth-routes.js';
+import BusinessRoutes from './routes/business-routes.js';
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(cookieParser());
 
 // Routes
 app.get('/', (req, res) => {
@@ -30,8 +33,18 @@ app.get('/', (req, res) => {
 app.use(globalErrorHandler);
 app.use('/api/products', ProductRoutes);
 app.use('/api/auth', AuthRoutes);
+app.use('/api/business', BusinessRoutes);
 
 // Listen
 app.listen(process.env.PORT || 5000, () => {
     console.log(`Server is running on port ${process.env.PORT || 5000}`);
 });
+
+app.all('*', (req, res, next) => {
+    res.status(404).json({
+        status: 'fail',
+        message: `Can't find ${req.originalUrl} on this server!`,
+    });
+});
+
+export default app;

@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
-import Business from './business-model.js';
 
-// Define the user schema
 const userSchema = new mongoose.Schema(
     {
         name: {
@@ -12,16 +9,26 @@ const userSchema = new mongoose.Schema(
         email: {
             type: String,
             required: [true, 'Email is required'],
-            unique: true,  // Enforces unique constraint on email
+            unique: true,
             match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
+            lowercase: true
         },
         password: {
             type: String,
             required: [true, 'Password is required'],
         },
+        otp: {
+            type: Number,
+            default: null
+        },
         isAdmin: {
             type: Boolean,
             required: true,
+            default: false,
+        },
+        isVarified: {
+            type: Boolean,
+            required: [true, 'Email verification is required'],
             default: false,
         },
         business: {

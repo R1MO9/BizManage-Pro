@@ -3,9 +3,12 @@ import { MdOutlineMenu, MdOutlineClose } from 'react-icons/md';
 import ThemeSwitcher from '../common/theme_switcher';
 import Button from '../common/button';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import image from '../../assets/images/User.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [token, setToken] = useState(null); // State to hold the token value
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -19,16 +22,20 @@ const Navbar = () => {
       document.body.style.overflow = 'auto';
     }
 
+    // Check if token is present in cookies
+    const userToken = Cookies.get('token');
+    setToken(userToken);
+
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [isOpen]);
 
   return (
-    <header className="w-full bg-gray-100 dark:bg-gray-900 dark:text-white shadow-lg z-30">
+    <header className="w-full bg-gray-100 dark:bg-gray-900 text-black dark:text-white shadow-lg z-30">
       <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="text-2xl font-semibold tracking-tight">
-          <Link to="#home" className="text-yellow-400">BizManage Pro</Link>
+          <Link to="/" className="text-yellow-400">BizManage Pro</Link>
         </div>
 
         {/* Navbar Links */}
@@ -38,13 +45,26 @@ const Navbar = () => {
           <Link to="#services" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Services</Link>
           <Link to="#contact" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Contact</Link>
 
-          <Button className="dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white">
-            Get Started
-          </Button>
+          {/* Conditionally render Button or User Logo */}
         </nav>
 
         {/* Theme Switcher */}
-        <ThemeSwitcher />
+        <div className='flex items-center space-x-4'>
+          <ThemeSwitcher />
+          {token ? (
+            <div className="items-center justify-center hidden md:flex">
+              <img
+                src={image}
+                alt="User Logo"
+                className="h-8 w-8 rounded-full border-2 border-black dark:border-yellow-400"
+              />
+            </div>
+          ) : (
+            <Button className="hidden md:block dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
+              Get Started
+            </Button>
+          )}
+        </div>
 
         {/* Mobile menu toggle button */}
         <button onClick={toggleMenu} className="md:hidden text-2xl text-black dark:text-white focus:outline-none">
@@ -65,10 +85,22 @@ const Navbar = () => {
             <Link to="#about" className="text-white text-xl hover:text-yellow-400 transition-colors duration-300">About</Link>
             <Link to="#services" className="text-white text-xl hover:text-yellow-400 transition-colors duration-300">Services</Link>
             <Link to="#contact" className="text-white text-xl hover:text-yellow-400 transition-colors duration-300">Contact</Link>
-            
-            <Button className="dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white">
-              Get Started
-            </Button>
+            {/* <Link to="/contact" className="hover:text-blue-400">Contact</Link> */}
+
+            {/* Conditionally render Button or User Logo */}
+            {token ? (
+              <div className="flex items-center justify-center border-2 border-black dark:border-yellow-400">
+                <img
+                  src={image}
+                  alt="User Logo"
+                  className="h-8 w-8 rounded-full"
+                />
+              </div>
+            ) : (
+              <Button className="bg-yellow-400 hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
+                Get Started
+              </Button>
+            )}
           </div>
         </div>
       )}
@@ -77,9 +109,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
-

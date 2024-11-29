@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import loginIllustration from '../assets/images/login.png';
 import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
 import { Link } from 'react-router-dom';
-import Login from '../actions/auth/login';
+import login from '../actions/auth/login.js';
+import notify from '../components/common/notify';
+import Notification from '../components/common/notification';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await Login(email, password);
+        if (!email || !password) {
+            notify('Email and password are required', 'error');
+            return;
+        }
+        const res = await login(email, password);
+        
+        if (res.status === 'error') {
+            notify(res.message, 'error');
+        } else {
+            notify('Login successful', 'success');
+
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
+        }
+
+        setEmail('');
+        setPassword('');
     };
+    useEffect(() => {
+        Cookies.get('token') ? navigate('/logout') : null;
+    }, []);
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 p-6 transition-colors duration-300">
@@ -35,7 +61,6 @@ const LoginPage = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
-                            required
                             className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                         />
 
@@ -47,7 +72,6 @@ const LoginPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Enter your password"
-                            required
                             className="dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600"
                         />
 
@@ -71,6 +95,7 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
+            <Notification />
         </div>
     );
 };

@@ -27,6 +27,11 @@ const productSchema = new mongoose.Schema(
             required: [true, 'Product count in stock is required'],
             min: [0, 'Count in stock must be at least 0'],
         },
+        business: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Business",
+            required: [true, 'Business is required'],
+        },
     },
     {
         timestamps: true,
