@@ -6,19 +6,6 @@ import userImg from "../assets/images/User.png";
 
 const HomePage = () => {
   return (
-    <div className="relative w-full h-screen flex flex-col-reverse sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover dark:bg-gray-950 dark:text-white overflow-x-hidden">
-      {/* Text Content */}
-      <div className="text-black dark:text-white text-center sm:text-left max-w-lg space-y-4 sm:w-1/2">
-        <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-          Welcome to <span className="text-yellow-400">BizManage Pro</span>
-        </h1>
-        <p className="text-xl sm:text-2xl">
-          Your business, our management solution. Explore the best features for managing and optimizing your business operations.
-        </p>
-        <Button className="bg-yellow-500 text-gray-800 px-6 py-2 rounded-md text-lg font-semibold hover:bg-yellow-400 transition duration-300">
-          Get Started
-        </Button>
-      </div>
     <div className="relative w-full overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover bg-white text-black dark:bg-gray-950 dark:text-white">
       <div className="relative w-full flex flex-col-reverse overflow-hidden sm:flex-row items-center justify-evenly px-4 md:px-12 bg-fixed bg-center bg-cover bg-white text-black dark:bg-gray-950 dark:text-white">
 
