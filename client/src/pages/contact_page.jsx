@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
 const ContactPage = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false); // State to toggle dark mode
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,23 +25,32 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center px-4 md:px-8">
-      <h1 className="text-3xl md:text-4xl font-bold my-6 text-center">
-        Contact Us
-      </h1>
+    <div
+      className={`${
+        isDarkMode ? "dark" : ""
+      } bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center px-4 md:px-8`}
+    >
+
+      <h2 className="mt-8 text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-4">
+        Get in Touch
+      </h2>
+      <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
+        Have questions or need assistance? We're here to help!
+      </p>
 
       <div className="flex flex-col md:flex-row w-full max-w-6xl gap-8">
-        
-
+        {/* Contact Form */}
         <form
-          className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/2"
+          className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full md:w-1/2"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-2xl font-semibold mb-4">Send Us a Message</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+            Send Us a Message
+          </h2>
           <div className="mb-4">
             <label
               htmlFor="name"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Name
             </label>
@@ -45,7 +60,7 @@ const ContactPage = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border rounded-lg text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your name"
               required
             />
@@ -53,7 +68,7 @@ const ContactPage = () => {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Email
             </label>
@@ -63,7 +78,7 @@ const ContactPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border rounded-lg text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your email"
               required
             />
@@ -71,7 +86,7 @@ const ContactPage = () => {
           <div className="mb-4">
             <label
               htmlFor="message"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Message
             </label>
@@ -80,7 +95,7 @@ const ContactPage = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border rounded-lg text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your message"
               rows="5"
               required
@@ -94,24 +109,36 @@ const ContactPage = () => {
           </button>
         </form>
 
-
-        <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/2">
-          <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-          <p className="text-gray-600 mb-4">
+        {/* Contact Information */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full md:w-1/2">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+            Contact Information
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             Feel free to reach out to us. We are happy to assist you.
           </p>
           <div className="space-y-4">
             <div className="flex items-center">
-              <span className="material-icons text-blue-500 mr-4">phone</span>
-              <p className="text-gray-700">+91 12345</p>
+              <span className="material-icons text-blue-500 dark:text-blue-400 mr-4">
+                phone:
+              </span>
+              <p className="text-gray-700 dark:text-gray-300">+91 12345</p>
             </div>
             <div className="flex items-center">
-              <span className="material-icons text-blue-500 mr-4">email</span>
-              <p className="text-gray-700">bizmanage@gmail.com</p>
+              <span className="material-icons text-blue-500 dark:text-blue-400 mr-4">
+                email:
+              </span>
+              <p className="text-gray-700 dark:text-gray-300">
+                bizmanage@gmail.com
+              </p>
             </div>
             <div className="flex items-center">
-              <span className="material-icons text-blue-500 mr-4">location_on</span>
-              <p className="text-gray-700">Barrackpore, North 24 Parganas, 700121, West Bengal</p>
+              <span className="material-icons text-blue-500 dark:text-blue-400 mr-4">
+                reach us: 
+              </span>
+              <p className="text-gray-700 dark:text-gray-300">
+                Barrackpore, North 24 Parganas, 700121, West Bengal
+              </p>
             </div>
           </div>
         </div>
