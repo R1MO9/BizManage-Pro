@@ -40,10 +40,10 @@ const Navbar = () => {
 
         {/* Navbar Links */}
         <nav className={`md:flex md:flex-row md:space-x-8 md:items-center md:gap-6 transition-all duration-300 md:static hidden md:p-0 space-y-4 md:space-y-0`}>
-          <Link to="#home" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Home</Link>
+          <Link to="/" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Home</Link>
           <Link to="#about" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">About</Link>
           <Link to="#services" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Services</Link>
-          <Link to="#contact" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Contact</Link>
+          <Link to="/contact" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Contact</Link>
 
           {/* Conditionally render Button or User Logo */}
         </nav>
