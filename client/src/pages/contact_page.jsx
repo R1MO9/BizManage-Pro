@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 
 const ContactPage = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false); // State to toggle dark mode
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,9 +20,7 @@ const ContactPage = () => {
 
   return (
     <div
-      className={`${
-        isDarkMode ? "dark" : ""
-      } bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center px-4 md:px-8`}
+      className='bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center px-4 md:px-8'
     >
 
       <h2 className="mt-8 text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-4">
