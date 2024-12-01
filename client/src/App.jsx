@@ -39,7 +39,7 @@ const App = () => {
         <Route path="/inventory" element={<InventoryManagementPage />} />
         <Route path="/sales" element={<SalesPage />} />
         <Route path="/create-business" element={<CreateBusiness />} />
-        <Route path="/business-profile/:id" element={<BusinessProfile />} />
+        <Route path="/business-profile" element={<BusinessProfile />} />
         <Route path="/verify-account" element={<VerifyAccount />} />
       </Route>
       <Route path="*" element={<NotFound />} />

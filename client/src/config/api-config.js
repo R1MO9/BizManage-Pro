@@ -8,4 +8,5 @@ export default class ApiConfig {
 
     // Business routes
     static CREATE_BUSINESS = `${this.BASE_URL}/business/create`;
+    static GET_BUSINESS = `${this.BASE_URL}/business/get`;
 };

@@ -4,28 +4,12 @@ import Button from '../components/common/button';
 import LabeledTextInput from '../components/common/labeled-text-input';
 import Chart from '../components/common/graph';
 import { chartData, chartOptions } from '../lib/data';
+import Cookies from 'js-cookie';
+import getBusiness from '../actions/business/getBusiness';
+import notify from '../components/common/notify';
+import { useNavigate } from 'react-router-dom';
 
 const BusinessProfile = () => {
-    // Params id
-    const { id } = useParams();
-    console.log('Business ID:', id);
-
-    // Fetching business data (simulated with mock data)
-    useEffect(() => {
-        // Simulate fetching business data based on ID
-        const mockBusinessData = {
-            businessName: "Business Name",
-            businessEmail: "contact@business.com",
-            businessPhone: "+1234567890",
-            businessAddress: "123 Business St, City, Country",
-            businessLogo: "https://via.placeholder.com/50",
-            businessGST: "GST123456789"
-        };
-
-        setBusinessInfo(mockBusinessData);
-        setFormData(mockBusinessData);
-    }, [id]);
-
     const [businessInfo, setBusinessInfo] = useState({
         businessName: "Business Name",
         businessEmail: "contact@business.com",
@@ -38,17 +22,54 @@ const BusinessProfile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState(businessInfo);
 
+    const navigate = useNavigate();
 
-    // Handle input change for business info fields
+    useEffect(() => {
+        const fetchBusinessInfo = async () => {
+            const token = Cookies.get('token');
+            if (!token) {
+                notify('Unauthorized', 'error');
+                navigate('/login');
+                return;
+            }
+
+            try {
+                const decodedToken = JSON.parse(atob(token.split('.')[1]));
+                const res = await getBusiness(decodedToken.id); // Assuming 'decodedToken.id' is the business ID.
+                
+                setBusinessInfo({
+                    businessName: res.businessName,
+                    businessEmail: res.businessEmail,
+                    businessPhone: res.businessPhone,
+                    businessAddress: res.businessAddress,
+                    businessLogo: res.businessLogo || "https://via.placeholder.com/50", // Ensure a default image if missing
+                    businessGST: res.businessGST,
+                });
+
+                setFormData({
+                    businessName: res.businessName,
+                    businessEmail: res.businessEmail,
+                    businessPhone: res.businessPhone,
+                    businessAddress: res.businessAddress,
+                    businessGST: res.businessGST,
+                });
+            } catch (error) {
+                console.error('Error decoding token or fetching business info:', error);
+                notify('An error occurred while fetching business info', 'error');
+            }
+        };
+
+        fetchBusinessInfo();
+    }, [navigate]);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
             ...prevState,
-            [name]: value
+            [name]: value,
         }));
     };
 
-    // Handle form submit to update business info
     const handleSubmit = (e) => {
         e.preventDefault();
         setBusinessInfo(formData);
@@ -56,8 +77,7 @@ const BusinessProfile = () => {
     };
 
     return (
-        <div className='min-h-screen bg-gray-50 dark:bg-gray-900 transition-all duration-300 relative'>
-            {/* Edit Button */}
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-all duration-300 relative">
             {!isEditing && (
                 <button
                     onClick={() => setIsEditing(true)}
@@ -67,7 +87,6 @@ const BusinessProfile = () => {
                 </button>
             )}
 
-            {/* About Section */}
             <section id="about" className={`py-16 text-center ${isEditing ? 'hidden' : 'visible'}`}>
                 <div className="max-w-7xl mx-auto px-6">
                     <h2 className="text-4xl font-bold text-gray-800 dark:text-white">About Our Business</h2>
@@ -76,16 +95,25 @@ const BusinessProfile = () => {
                     </p>
                     <div className="mt-10">
                         <p className="text-lg font-semibold">Business Info:</p>
-                        <p className="text-lg text-gray-600 dark:text-gray-300"><strong>Business Name:</strong> {businessInfo.businessName}</p>
-                        <p className="text-lg text-gray-600 dark:text-gray-300"><strong>Email:</strong> {businessInfo.businessEmail}</p>
-                        <p className="text-lg text-gray-600 dark:text-gray-300"><strong>Phone:</strong> {businessInfo.businessPhone}</p>
-                        <p className="text-lg text-gray-600 dark:text-gray-300"><strong>Address:</strong> {businessInfo.businessAddress}</p>
-                        <p className="text-lg text-gray-600 dark:text-gray-300"><strong>GST:</strong> {businessInfo.businessGST}</p>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                            <strong>Business Name:</strong> {businessInfo.businessName}
+                        </p>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                            <strong>Email:</strong> {businessInfo.businessEmail}
+                        </p>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                            <strong>Phone:</strong> {businessInfo.businessPhone}
+                        </p>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                            <strong>Address:</strong> {businessInfo.businessAddress}
+                        </p>
+                        <p className="text-lg text-gray-600 dark:text-gray-300">
+                            <strong>GST:</strong> {businessInfo.businessGST}
+                        </p>
                     </div>
                 </div>
             </section>
 
-            {/* Edit Business Info Form */}
             {isEditing && (
                 <section id="edit-business" className="py-16 bg-gray-100 dark:bg-gray-800">
                     <div className="max-w-7xl mx-auto px-6 text-center">
@@ -142,7 +170,6 @@ const BusinessProfile = () => {
                 </section>
             )}
 
-            {/* Business Insights / Chart Section */}
             <section>
                 <div className="p-6">
                     <Chart chartData={chartData} chartOptions={chartOptions} />
