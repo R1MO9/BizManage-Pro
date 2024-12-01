@@ -9,6 +9,10 @@ export default class BusinessRepository {
         return await Business.findById(id);
     }
 
+    static async findByOwner(owner) {
+        return await Business.find({ owner });
+    }
+
     static async findAll() {
         return await Business.find();
     }

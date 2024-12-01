@@ -34,4 +34,17 @@ export default class AuthRepository {
     static async decodeToken(token) {
         return jwt.decode(token);
     }
+
+    static async verifyOTP(email, otp) {
+        const user = await User.findOne({ email });
+        if (user.otp == otp) {
+            user.otp = null;
+            user.isVerified = true;
+            await user.save();
+
+            return { status: 'success', message: 'OTP verified successfully' };
+        } else {
+            return { status: 'error', message: 'Invalid OTP' };
+        }
+    }
 }
