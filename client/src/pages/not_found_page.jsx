@@ -25,7 +25,7 @@ const NotFound = () => {
             {/* Dark/Light Mode Toggle */}
             <button
                 onClick={toggleTheme}
-                className="absolute top-6 right-6 p-3 rounded-full text-2xl transition-all transform hover:scale-110 dark:text-yellow-400 text-blue-500 dark:bg-gray-800 bg-white dark:hover:bg-gray-600 hover:bg-blue-200 dark:hover:bg-gray-700"
+                className="absolute top-6 right-6 p-3 rounded-full text-2xl transition-all transform hover:scale-110 dark:text-yellow-400 text-blue-500 dark:bg-gray-800 bg-white hover:bg-blue-200 dark:hover:bg-gray-700"
             >
                 🌙 / 🌞
             </button>

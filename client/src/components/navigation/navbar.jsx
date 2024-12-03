@@ -5,6 +5,7 @@ import Button from '../common/button';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import image from '../../assets/images/User.png';
+import ProfileDropdown from '../common/profile-dropdown';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,13 +53,7 @@ const Navbar = () => {
         <div className='flex items-center space-x-4'>
           <ThemeSwitcher />
           {token ? (
-            <div className="items-center justify-center hidden md:flex">
-              <img
-                src={image}
-                alt="User Logo"
-                className="h-8 w-8 rounded-full border-2 border-black dark:border-yellow-400"
-              />
-            </div>
+            <ProfileDropdown />
           ) : (
             <Button className="hidden md:block dark:bg-yellow-400 dark:hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
               Get Started
@@ -89,13 +84,7 @@ const Navbar = () => {
 
             {/* Conditionally render Button or User Logo */}
             {token ? (
-              <div className="flex items-center justify-center border-2 border-black dark:border-yellow-400">
-                <img
-                  src={image}
-                  alt="User Logo"
-                  className="h-8 w-8 rounded-full"
-                />
-              </div>
+              <ProfileDropdown />
             ) : (
               <Button className="bg-yellow-400 hover:bg-yellow-500 text-white" onClick={() => window.location.href = '/login'}>
                 Get Started
