@@ -44,7 +44,7 @@ const Navbar = () => {
           <Link to="#about" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">About</Link>
           <Link to="#services" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Services</Link>
           <Link to="/contact" className="text-lg text-gray-800 dark:text-white hover:text-yellow-400 transition-colors duration-300">Contact</Link>
-
+          
           {/* Conditionally render Button or User Logo */}
         </nav>
 

@@ -11,6 +11,7 @@ import InventoryManagementPage from './pages/inventory_management_page';
 import SalesPage from './pages/sales_page';
 import HomePage from './pages/home_page';
 import ContactPage from './pages/contact_page';
+import AboutPage from './pages/about_page.jsx';
 import NotFound from './pages/not_found_page';
 import LogoutPage from './pages/logout_page';
 import BusinessProfile from './pages/business-profile.jsx';
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/business-profile" element={<BusinessProfile />} />
         <Route path="/verify-account" element={<VerifyAccount />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/about" element={<AboutPage />} />
 
       </Route>
       <Route path="*" element={<NotFound />} />
