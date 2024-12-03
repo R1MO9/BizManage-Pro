@@ -34,7 +34,7 @@ const HomePage = () => {
         {/* Background Animation */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="animate-floating-objects">
-            <div className="floating-object bg-white dark:bg-gray-400"></div>
+            <div className="floating-object bg-red-400 dark:bg-gray-400"></div>
             <div className="floating-object bg-yellow-300 dark:bg-yellow-500"></div>
             <div className="floating-object bg-blue-400 dark:bg-blue-500"></div>
             <div className="floating-object bg-green-300 dark:bg-green-500"></div>
@@ -79,7 +79,7 @@ const HomePage = () => {
 
 
 
-      {/* Floating Object Animation Styles */}
+      Floating Object Animation Styles
       <style jsx>{`
         @keyframes floating {
           0% {
