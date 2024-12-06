@@ -10,6 +10,7 @@ const businessSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Business email is required'],
             unique: true,
+            smallcase: true,
             match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'],
         },
         phone: {

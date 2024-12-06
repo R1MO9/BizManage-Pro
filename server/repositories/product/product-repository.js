@@ -1,7 +1,7 @@
 import Product from '../../models/product-model.js';
 
-const getAllProducts = async () => {
-    return await Product.find();
+const getAllProducts = async (businessId) => {
+    return await Product.find({ business: businessId });
 };
 
 const getProductById = async (id) => {

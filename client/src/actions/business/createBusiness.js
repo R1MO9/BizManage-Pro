@@ -14,6 +14,8 @@ const createBusiness = async (businessData) => {
                 Authorization: `Bearer ${token}`,
             },
         });
+        
+        Cookies.set('businessId', response.data.data.business._id);
         return response.data;
     } catch (error) {
         return error.response.data;

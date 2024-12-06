@@ -1,41 +1,118 @@
-import React, { useState } from 'react';
-import ProductForm from '../components/common/product_form';
+import React, { useEffect, useState } from 'react';
 import Button from '../components/common/button';
 import IconButton from '../components/common/icon-button';
-import { products } from '../lib/data';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import addProduct from '../actions/product/addProduct.js';
+import getProducts from '../actions/product/getProducts.js';
+import updateProduct from '../actions/product/updateProduct.js';
+import deleteProduct from '../actions/product/deleteProduct.js';
+import notify from '../components/common/notify';
+import Notification from '../components/common/notification';
+import Cookie from 'js-cookie';
 
 const InventoryManagementPage = () => {
-    const [inventoryItems, setInventoryItems] = useState(products);
+    const [inventoryItems, setInventoryItems] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const [currentItem, setCurrentItem] = useState(null);
+    const [currentItem, setCurrentItem] = useState(null);  // Track the current item being edited
+    const [name, setName] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [supplierId, setSupplierId] = useState('');
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
-        setCurrentItem(null);
+        if (modalOpen) {
+            setCurrentItem(null);  // Reset when modal is closed
+            setName('');
+            setQuantity('');
+            setPrice('');
+            setDescription('');
+            setSupplierId('');
+        }
     };
 
-    const handleSave = (item) => {
+    const handleSave = async (e) => {
+        e.preventDefault();
+        const businessId = Cookie.get('businessId');
+        const item = {
+            name,
+            countInStock: quantity,
+            price,
+            description,
+            supplierId,
+            business: businessId,
+        };
+
+        const token = Cookie.get('token');
+        let response;
+
         if (currentItem) {
-            setInventoryItems((prev) =>
-                prev.map((i) => (i.id === currentItem.id ? item : i))
-            );
+            // If editing an existing product, update it
+            response = await updateProduct(token, currentItem._id, item);
         } else {
-            setInventoryItems((prev) => [
-                ...prev,
-                { ...item, id: prev.length + 1 },
-            ]);
+            // If adding a new product
+            response = await addProduct(token, item);
         }
-        toggleModal();
+
+        if (response.status === 'error') {
+            notify(response.message, 'error');
+            return;
+        } else {
+            notify(currentItem ? 'Product updated successfully' : 'Product added successfully', 'success');
+        }
+
+        toggleModal(); // Close the modal after saving
     };
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const token = Cookie.get('token');
+                const businessId = Cookie.get('businessId');
+                const response = await getProducts(token, businessId);
+
+                if (response.status === 'success') {
+                    setInventoryItems(response.data.products);
+                } else {
+                    notify(response.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                notify('Failed to load products', 'error');
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const handleEdit = (item) => {
-        setCurrentItem(item);
+        setCurrentItem(item);  // Set the current item to be edited
+        setName(item.name);
+        setQuantity(item.countInStock);
+        setPrice(item.price);
+        setDescription(item.description);
+        setSupplierId(item.supplierId);
         setModalOpen(true);
     };
 
-    const handleDelete = (id) => {
-        setInventoryItems((prev) => prev.filter((item) => item.id !== id));
+    const handleDelete = async (id) => {
+        const confirmed = window.confirm('Are you sure you want to delete this product?');
+        
+        if (confirmed) {
+            const token = Cookie.get('token');
+            const response = await deleteProduct(token, id);
+
+            console.log(response);
+            
+
+            if (response.status === 'error') {
+                notify(response.message, 'error');
+            } else {
+                setInventoryItems((prev) => prev.filter((item) => item._id !== id));
+                notify('Product deleted successfully', 'success');
+            }
+        }
     };
 
     return (
@@ -60,25 +137,19 @@ const InventoryManagementPage = () => {
                         </thead>
                         <tbody className="divide-y divide-gray-300 dark:divide-gray-700">
                             {inventoryItems.map((item) => (
-                                <tr key={item.id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <tr key={item._id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td className="px-6 py-4 text-sm text-gray-800 dark:text-white">{item.name}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 dark:text-white">{item.quantity}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-800 dark:text-white">{item.countInStock}</td>
                                     <td className="px-6 py-4 text-sm text-gray-800 dark:text-white">${item.price.toFixed(2)}</td>
                                     <td className="px-6 py-4 text-sm text-gray-800 dark:text-white">{item.description}</td>
                                     <td className="px-6 py-4 text-sm text-gray-800 dark:text-white">{item.supplierId}</td>
                                     <td className="px-6 py-4 text-sm text-gray-800 dark:text-white flex space-x-2">
-                                        <button
-                                            className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-semibold"
-                                            onClick={() => handleEdit(item)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200 font-semibold"
-                                            onClick={() => handleDelete(item.id)}
-                                        >
-                                            Delete
-                                        </button>
+                                        <IconButton onClick={() => handleEdit(item)}>
+                                            <FaEdit />
+                                        </IconButton>
+                                        <IconButton onClick={() => handleDelete(item._id)}>
+                                            <FaTrash />
+                                        </IconButton>
                                     </td>
                                 </tr>
                             ))}
@@ -97,14 +168,80 @@ const InventoryManagementPage = () => {
                         <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
                             {currentItem ? 'Edit Product' : 'Add Product'}
                         </h2>
-                        <ProductForm
-                            currentItem={currentItem}
-                            onSave={handleSave}
-                            onCancel={toggleModal}
-                        />
+                        <form onSubmit={handleSave} className="space-y-4">
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-600 dark:text-gray-200">Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Enter product name"
+                                    required
+                                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 w-full"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="quantity" className="block text-sm font-medium text-gray-600 dark:text-gray-200">Quantity</label>
+                                <input
+                                    type="number"
+                                    id="quantity"
+                                    value={quantity}
+                                    onChange={(e) => setQuantity(e.target.value)}
+                                    placeholder="Enter quantity"
+                                    required
+                                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 w-full"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="price" className="block text-sm font-medium text-gray-600 dark:text-gray-200">Price</label>
+                                <input
+                                    type="number"
+                                    id="price"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    placeholder="Enter price"
+                                    required
+                                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 w-full"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-600 dark:text-gray-200">Description</label>
+                                <input
+                                    type="text"
+                                    id="description"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    placeholder="Enter description"
+                                    required
+                                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 w-full"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="supplierId" className="block text-sm font-medium text-gray-600 dark:text-gray-200">Supplier ID</label>
+                                <input
+                                    type="text"
+                                    id="supplierId"
+                                    value={supplierId}
+                                    onChange={(e) => setSupplierId(e.target.value)}
+                                    placeholder="Enter supplier ID"
+                                    required
+                                    className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-4 py-2 w-full"
+                                />
+                            </div>
+                            <div className="flex justify-end">
+                                <Button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none">
+                                    Save
+                                </Button>
+                                <Button onClick={toggleModal} className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 focus:outline-none">
+                                    Cancel
+                                </Button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
+            <Notification />
         </div>
     );
 };

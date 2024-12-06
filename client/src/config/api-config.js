@@ -9,4 +9,10 @@ export default class ApiConfig {
     // Business routes
     static CREATE_BUSINESS = `${this.BASE_URL}/business/create`;
     static GET_BUSINESS = `${this.BASE_URL}/business/get`;
+
+    // Product routes
+    static ADD_PRODUCT = `${this.BASE_URL}/products/add`;
+    static GET_PRODUCTS = `${this.BASE_URL}/products/get`;
+    static UPDATE_PRODUCT = `${this.BASE_URL}/products/edit/:id`;
+    static DELETE_PRODUCT = `${this.BASE_URL}/products/delete/:id`;
 };
