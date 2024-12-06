@@ -57,13 +57,15 @@ const ProfileDropdown = () => {
           <Link
             to="/profile"
             className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={toggleDropdown}
           >
             <FaUser className="mr-2" />
             Profile
           </Link>
           <Link
-            to="/business"
+            to="/inventory"
             className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={toggleDropdown}
           >
             <FaBriefcase className="mr-2" />
             Business
@@ -71,6 +73,7 @@ const ProfileDropdown = () => {
           <Link
             to="/logout"
             className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={toggleDropdown}
           >
             <FaSignOutAlt className="mr-2" />
             Logout
