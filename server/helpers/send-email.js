@@ -15,7 +15,7 @@ const sendOTP = async (email, otp) => {
         });
 
         const mailOptions = {
-            from: process.env.EMAIL,
+            from: process.env.EMAIL_FROM,
             to: email,
             subject: 'Your OTP Verification Code',
             html: `
