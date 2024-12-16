@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema(
         //     type: String,
         //     required: [true, 'Product category is required'],
         // },
+        supplierId: {
+            type: String,
+            required: [true, 'Supplier ID is required'],
+        },
         countInStock: {
             type: Number,
             required: [true, 'Product count in stock is required'],
