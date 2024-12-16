@@ -6,6 +6,7 @@ const login = async (email, password) => {
     try {
         const res = await axios.post(ApiConfig.LOGIN, { email, password });
         Cookies.set('token', res.data.data.user.token);
+        Cookies.set('businessId', res.data.data.user.business);
         return res.data;
     } catch (error) {
         console.log(error.response.data);

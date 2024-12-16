@@ -1,12 +1,13 @@
-// src/pages/SalesPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../components/common/button';
 import generatePDF from '../lib/generatePDF';
-import { productsData } from '../lib/data';
+import getProducts from '../actions/product/getProducts.js';
+import Cookie from 'js-cookie';
 
 const SalesPage = () => {
     const [cart, setCart] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [productsData, setProductsData] = useState([]);
 
     const addToCart = (product) => {
         setCart((prevCart) => {
@@ -21,6 +22,27 @@ const SalesPage = () => {
         });
     };
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const token = Cookie.get('token');
+                const businessId = Cookie.get('businessId');
+                const response = await getProducts(token, businessId);
+    
+                if (response.status === 'success') {
+                    setProductsData(response.data.products);
+                } else {
+                    notify(response.message, 'error');
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                notify('Failed to load products', 'error');
+            }
+        };
+    
+        fetchProducts();
+    }, []);    
+
     const filteredProducts = productsData.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -31,7 +53,7 @@ const SalesPage = () => {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row p-6 bg-gray-50 dark:bg-gray-900 dark:text-white">
+        <div className="flex flex-col lg:flex-row p-6 bg-gray-50 dark:bg-gray-900 dark:text-white min-h-svh">
             <div className="flex-1 lg:w-2/3 mb-4 lg:mb-0">
                 <input
                     type="text"
